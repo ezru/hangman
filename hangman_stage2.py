@@ -47,7 +47,10 @@ while play == True:
     
     strGuess = game.textinput("Str", "Guess a letter")
 
-    if strGuess not in word:
+    if strGuess in word:
+        pass
+    else:
+        
         count = count +1
 
         if count == 1:
