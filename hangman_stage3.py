@@ -26,14 +26,26 @@ def writeText(trtlName, text, x, y, pcolor="green", font=["courier", 20, "italic
     trtlName.pencolor(pcolor)
     trtlName.write(text, font=(font[0], font[1], font[2]))
 
+def findLetter(searchLetter, word):
+      count = 0
+      ltrFound = []
+      for letter in word:
+            if letter == searchLetter:
+                  ltrFound.append(count)
+            count +=1
+      return ltrFound
+
 play = True
-count = 0
+countRight = 0
+countWrong = 0
 game = Screen()
+game.screensize(500,200)
+game.bgpic("paper_gif.gif")
 stewie = Turtle()
 stewie.shape("turtle")
 stewie.color("red", "blue")
 
-word = "quiet"
+word = "zimzima"
 
 for i in range(len(word)):
     step = i*30
@@ -48,32 +60,36 @@ while play == True:
     strGuess = game.textinput("Str", "Guess a letter")
 
     if strGuess in word:
-        ind = word.index(strGuess)
-        xPos = ind*30
-        writeText(stewie, strGuess, xPos+3, 150)
+        ltrloc = findLetter(strGuess, word)
+        for ind in ltrloc:
+            xPos = ind*30
+            writeText(stewie, strGuess, xPos+3, 150)
+            countRight += 1
+        if len(word) <= countRight:
+            play = False
     else:        
-        count = count +1
-        if count == 1:
+        countWrong = countWrong +1
+        if countWrong == 1:
             drawline(stewie, -270, -70, -70, -70, 9, "brown")
-        elif count == 2:
+        elif countWrong == 2:
             drawline(stewie, -170, -70, -170, 230, 5, "brown")
-        elif count == 3:
+        elif countWrong == 3:
             drawline(stewie, -170, 230, -70, 230, 5, "brown")
-        elif count == 4:
+        elif countWrong == 4:
             drawline(stewie, -70, 230, -70, 180, 5, "brown")
-        elif count == 5:
+        elif countWrong == 5:
             drawcircle(stewie, 30, -70, 120, psize=8, pcolor="red")
-        elif count == 6:
+        elif countWrong == 6:
             drawline(stewie, -70, 120, -70, 70, 5, "red")
-        elif count == 7:
+        elif countWrong == 7:
             drawline(stewie, -70, 110, -100, 70, 5, "red")
-        elif count == 8:
+        elif countWrong == 8:
             drawline(stewie, -70, 110, -40, 70, 5, "red")
-        elif count == 9:
+        elif countWrong == 9:
             drawline(stewie, -70, 70, -100, 20, 5, "red")
-        elif count == 10:
+        elif countWrong == 10:
             drawline(stewie, -70, 70, -40, 20, 5, "red")
 
-    if count >=10:
+    if countWrong >=10:
         play = False
 
